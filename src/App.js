@@ -2,6 +2,8 @@ import {useEffect, useState} from "react";
 import './App.css';
 import MovieCard from "./Components/MovieCard";
 import env from "react-dotenv";
+import { Button } from "bootstrap";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const api_url = `${env.API_URL}`;
 
@@ -27,19 +29,24 @@ const App = () => {
 
     return (
         <div className="App">
-            <h1>R Movies</h1>
+            <div className="row header">
+                <h1>R Movies</h1>
 
-            <div className="search">
-                <input type="text" placeholder="Search..." value={searchTerm} className="search-input" onChange={(e) => {setSearchTerm(e.target.value)}}/>
-                <button type="submit" onClick={()=> searchMovies(searchTerm)}>Check</button>
+                <div className="search">
+                    <input type="text" placeholder="Search..." value={searchTerm} className="search-input" onChange={(e) => {setSearchTerm(e.target.value)}}/>
+                    <Button type="submit" onClick={()=> searchMovies(searchTerm)}>Check</Button>
+                </div>
             </div>
 
+            <div className="main row">
             {
                 movies?.length > 0 ? (
                     <div className="container">
                         {
                             movies.map((movie, index) => (
-                                <MovieCard key={index} movie={movie}/>
+                                <div className="col-md-4">
+                                    <MovieCard key={index} movie={movie}/>
+                                </div>
                             ))
                         }
                     </div>
@@ -49,6 +56,7 @@ const App = () => {
                     </div>
                 )
             }
+            </div>
 
         </div>
 
